@@ -15,10 +15,14 @@ spring:
           uri: lb://ORDER-SERVICE
           predicates:
             - Path= /order/**
+          filters:
+            - AuthenticationFilter
         - id: payment-service
           uri: lb://PAYMENT-SERVICE
           predicates:
             - Path= /payment/**
+          filters:
+            - AuthenticationFilter
         - id: user-service
           uri: lb://USER-SERVICE
           predicates:
