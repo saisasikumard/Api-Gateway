@@ -17,6 +17,10 @@ spring:
             - Path= /order/**
           filters:
             - AuthenticationFilter
+            - name : CircuitBreaker
+              args:
+                  name: callOrderFallback
+                  fallbackUri: forward:/fallback/order
 
         - id: payment-service
           uri: lb://PAYMENT-SERVICE
@@ -24,6 +28,10 @@ spring:
             - Path= /payment/**
           filters:
             - AuthenticationFilter
+            - name: CircuitBreaker
+              args:
+                 name: callOrderFallback
+                 fallbackUri: forward:/fallback/payment
 
         - id: user-service
           uri: lb://USER-SERVICE
@@ -31,6 +39,10 @@ spring:
             - Path= /user/**
           filters:
             - AuthenticationFilter
+            - name: CircuitBreaker
+              args:
+                name: callOrderFallback
+                fallbackUri: forward:/fallback/user
 
 
 
